@@ -57,6 +57,9 @@ jobs:
         with:
           name: assets
           path: public
+      
+      - name: run
+        run: ls -la
 
 
   deploy:
