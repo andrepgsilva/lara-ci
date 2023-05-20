@@ -51,28 +51,42 @@ jobs:
 
       - name: Compile assets for production
         run: npm run build
+      
+      - name: Upload NPM build artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          path: public
+
 
   deploy:
-
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Deployment
-        uses: appleboy/ssh-action@v0.1.10
-
+      - name: Download NPM build artifact
+        uses: actions/download-artifact@v2.1.1
         with:
-          host: ${{ secrets.SSH_HOST }}
+          path: public
 
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: public
 
-          username: ${{ secrets.SSH_USERNAME }}
+      # - name: Deployment
+      #   uses: appleboy/ssh-action@v0.1.10
 
-          script: |
-            cd /var/www/html/
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
 
-            git checkout -f 
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-            git pull
+      #     username: ${{ secrets.SSH_USERNAME }}
+
+      #     script: |
+      #       cd /var/www/html/
+
+      #       git checkout -f 
+
+      #       git pull
