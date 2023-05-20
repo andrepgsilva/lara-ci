@@ -57,10 +57,6 @@ jobs:
         with:
           name: assets
           path: public
-      
-      - name: run
-        run: ls -la
-
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,6 +65,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: run
+        run: ls -la
+        
       - name: Download NPM build artifact
         uses: actions/download-artifact@v3
         with:
