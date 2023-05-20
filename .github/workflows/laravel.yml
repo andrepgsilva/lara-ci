@@ -53,10 +53,10 @@ jobs:
         run: npm run build
       
       - name: Upload NPM build artifact
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: public/
+          name: assets
+          path: public
 
 
   deploy:
@@ -69,12 +69,12 @@ jobs:
       - name: Download NPM build artifact
         uses: actions/download-artifact@v3
         with:
-          name: my-artifact
-          path: public/
+          name: assets
+          path: public
 
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: public/
+        working-directory: public
 
       # - name: Deployment
       #   uses: appleboy/ssh-action@v0.1.10
