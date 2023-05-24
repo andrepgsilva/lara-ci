@@ -71,23 +71,19 @@ jobs:
         with:
           name: assets
 
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: public
+      - name: Deployment
+        uses: appleboy/ssh-action@v0.1.10
 
-      # - name: Deployment
-      #   uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
 
-      #   with:
-      #     host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.SSH_USERNAME }}
 
-      #     username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            cd /var/www/html/
 
-      #     script: |
-      #       cd /var/www/html/
+            git checkout -f
 
-      #       git checkout -f 
-
-      #       git pull
+            git pull
